@@ -14,46 +14,41 @@ public class Main{
 		Brick brick = BrickFinder.getDefault();
     	Port s1 = brick.getPort("S1"); // fargesensor
  		Port s2 = brick.getPort("S2"); // trykksensor
-		NXTColorSensor fargesensor1 = new NXTColorSensor(s1); // EV3-fargesensor
-		EV3ColorSensor fargesensor2 = new EV3ColorSensor(s2); // EV3-fargesensor
+		NXTLightSensor lysSensor = new NXTLightSensor(s1); // NXT-lyssensor
+		EV3ColorSensor fargeSensor = new EV3ColorSensor(s2); // EV3-fargesensor
+
+		/* Definerer en lyssensor */
+		SampleProvider lysLeser = lysSensor;  //
+		float[] lysSample = new float[lysLeser.sampleSize()];  // tabell som innholder avlest verdi
+		// readNormalizedValue()
+
 
 		/* Definerer en fargesensor */
-		SampleProvider fargeLeser1 = fargesensor1.getMode("RGB");  // svart = 0.01..
-		float[] fargeSample1 = new float[fargeLeser1.sampleSize()];  // tabell som innholder avlest verdi
-
-		/* Definerer en fargesensor */
-		SampleProvider fargeLeser2 = fargesensor2.getMode("RGB");  // svart = 0.01..
-		float[] fargeSample2 = new float[fargeLeser2.sampleSize()];  // tabell som innholder avlest verdi
+		SampleProvider fargeLeser = fargeSensor.getMode("RGB");  // svart = 0.01..
+		float[] fargeSample = new float[fargeLeser.sampleSize()];  // tabell som innholder avlest verdi
 
 		// Registrerer differentialPilot
 		DifferentialPilot pilot = new DifferentialPilot(56, 120, Motor.B, Motor.C, false);
 		pilot.setTravelSpeed(80);
 		pilot.setRotateSpeed(150);
 
-	    int color1 = 0;
-		int color2 = 0;
-	    for (int i = 0; i<100; i++){
-	    	fargeLeser1.fetchSample(fargeSample1, 0);
-			fargeLeser2.fetchSample(fargeSample2, 0);
-	    	color1 += fargeSample1[0] * 100;
-			color2 += fargeSample2[0] * 100;
-	    }
-		color1 /= 100;
-		color2 /= 100;
+	    double svart1 = 0.34;
+		double svart2 = 0.01;
 
 		while (true) {
-			fargeLeser1.fetchSample(fargeSample1, 0);
-			fargeLeser2.fetchSample(fargeSample2, 0);
-			if (fargeSample2[0] * 100 < color2) {
+			lysLeser.fetchSample(lysSample, 0);
+			fargeLeser.fetchSample(fargeSample, 0);
+			if (fargeSample[0] < svart2) {
 				System.out.println("Høyre!");
 				pilot.rotateRight();
-			} else if (fargeSample1[0] * 100 < color1) {
+			} else if (lysSample[0] < svart1) {
 				System.out.println("Venstre!");
 				pilot.rotateLeft();
 			} else {
 				System.out.println("Fremover!");
 				pilot.forward();
 			}
+			System.out.println(lysSample[0]);
 			Thread.sleep(200);
 		}
 	}
