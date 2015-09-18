@@ -32,8 +32,8 @@ public class Main{
 		pilot.setTravelSpeed(80);
 		pilot.setRotateSpeed(150);
 
-	    double svart1 = 0.34;
-		double svart2 = 0.01;
+	    double svart1 = 0.4;
+		double svart2 = 0.02;
 
 		while (true) {
 			lysLeser.fetchSample(lysSample, 0);
