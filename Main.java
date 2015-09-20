@@ -43,15 +43,15 @@ public class Main{
 				switch (hinder) {
 					case 0:
 						pilot.forward();
-						obstacle++;
+						hinder++;
 						break;
 					case 1:
 						pilot.rotateRight();
-						obstacle++;
+						hinder++;
 						break;
 					case 2:
 						pilot.forward();
-						obstacle = 0;
+						hinder = 0;
 						break;
 				}
 			} else if (lysSample[0] < svart1 && fargeSample[0] > svart2) {
