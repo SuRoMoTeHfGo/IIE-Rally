@@ -34,21 +34,37 @@ public class Main{
 
 	    double svart1 = 0.43;
 		double svart2 = 0.03;
+		int hinder = 0;
 
 		while (true) {
 			lysLeser.fetchSample(lysSample, 0);
 			fargeLeser.fetchSample(fargeSample, 0);
-			if (fargeSample[0] < svart2) {
-				System.out.println("Høyre!");
-				pilot.rotateRight();
-			} else if (lysSample[0] < svart1) {
+			if (lysSample[0] < svart1 && fargeSample[0] < svart2) {
+				switch (hinder) {
+					case 0:
+						pilot.forward();
+						obstacle++;
+						break;
+					case 1:
+						pilot.rotateRight();
+						obstacle++;
+						break;
+					case 2:
+						pilot.forward();
+						obstacle = 0;
+						break;
+				}
+			} else if (lysSample[0] < svart1 && fargeSample[0] > svart2) {
 				System.out.println("Venstre!");
 				pilot.rotateLeft();
+			} else if (lysSample[0] > svart1 && fargeSample[0] < svart2) {
+				System.out.println("Høyre!");
+				pilot.rotateRight();
 			} else {
 				System.out.println("Fremover!");
 				pilot.forward();
 			}
-			System.out.println(lysSample[0]);
+
 			Thread.sleep(200);
 		}
 	}
