@@ -29,27 +29,31 @@ public class Main{
 
 		// Registrerer differentialPilot
 		DifferentialPilot pilot = new DifferentialPilot(56, 120, Motor.B, Motor.C, false);
-		pilot.setTravelSpeed(80);
-		pilot.setRotateSpeed(150);
+		pilot.setRotateSpeed(10);
 
-	    double svart1 = 0.43;
-		double svart2 = 0.03;
+	    double svart1 = 0.43; // verdi for svart på lysSensor
+		double svart2 = 0.03; // verdi for svart på fargeSensor
 
 		while (true) {
 			lysLeser.fetchSample(lysSample, 0);
 			fargeLeser.fetchSample(fargeSample, 0);
-			if (fargeSample[0] < svart2) {
-				System.out.println("Høyre!");
-				pilot.rotateRight();
-			} else if (lysSample[0] < svart1) {
+			if (lysSample[0] < svart1 && fargeSample[0] < svart2) {
+				// Gjør noe
+				System.out.println("GJØR NOE!!!!");
+				pilot.forward();
+			} else if (lysSample[0] < svart1 && fargeSample[0] > svart2) {
 				System.out.println("Venstre!");
+				pilot.setTravelSpeed(100);
 				pilot.rotateLeft();
+			} else if (lysSample[0] > svart1 && fargeSample[0] < svart2) {
+				System.out.println("Høyre!");
+				pilot.setTravelSpeed(100);
+				pilot.rotateRight();
 			} else {
 				System.out.println("Fremover!");
+				pilot.setTravelSpeed(180);
 				pilot.forward();
 			}
-			System.out.println(lysSample[0]);
-			Thread.sleep(200);
 		}
 	}
 }
