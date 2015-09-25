@@ -29,29 +29,38 @@ public class Main{
 
 		// Registrerer differentialPilot
 		DifferentialPilot pilot = new DifferentialPilot(56, 120, Motor.B, Motor.C, false);
-		pilot.setTravelSpeed(80);
-		pilot.setRotateSpeed(150);
+		pilot.setTravelSpeed(100);
+		pilot.setRotateSpeed(100);
 
 	    double svart1 = 0.43;
-		double svart2 = 0.03;
+		double svart2 = 0.033;
 		int hinder = 0;
 
 		while (true) {
 			lysLeser.fetchSample(lysSample, 0);
 			fargeLeser.fetchSample(fargeSample, 0);
 			if (lysSample[0] < svart1 && fargeSample[0] < svart2) {
+				System.out.println("Hinder!!!!");
+				// Gjør noe med denne logikken
 				switch (hinder) {
 					case 0:
+						pilot.rotateLeft();
+						Thread.sleep(100);
 						pilot.forward();
 						hinder++;
+						Thread.sleep(200);
 						break;
 					case 1:
 						pilot.rotateRight();
 						hinder++;
+						Thread.sleep(200);
 						break;
 					case 2:
+						pilot.rotateRight();
+						Thread.sleep(100);
 						pilot.forward();
-						hinder = 0;
+						hinder++;
+						Thread.sleep(200);
 						break;
 				}
 			} else if (lysSample[0] < svart1 && fargeSample[0] > svart2) {
@@ -64,8 +73,6 @@ public class Main{
 				System.out.println("Fremover!");
 				pilot.forward();
 			}
-
-			Thread.sleep(200);
 		}
 	}
 }
