@@ -44,23 +44,31 @@ public class Main{
 				// Gjør noe med denne logikken
 				switch (hinder) {
 					case 0:
-						pilot.rotateLeft();
-						Thread.sleep(100);
-						pilot.forward();
+						while(lysSample[0] < svart1 || fargeSample[0] < svart2) {
+							pilot.forward();
+							pilot.rotateLeft();
+						}
 						hinder++;
-						Thread.sleep(200);
 						break;
 					case 1:
-						pilot.rotateRight();
+						int count = 0;
+						while(count < 10) {
+							if (fargeSample[0] < svart2) {
+								pilot.rotateRight();
+							} else {
+								pilot.forward();
+							}
+							Thread.sleep(100);
+							count++;
+						}
 						hinder++;
-						Thread.sleep(200);
 						break;
 					case 2:
-						pilot.rotateRight();
-						Thread.sleep(100);
-						pilot.forward();
+						while(lysSample[0] < svart1 || fargeSample[0] < svart2) {
+							pilot.forward();
+							pilot.rotateRight();
+						}
 						hinder++;
-						Thread.sleep(200);
 						break;
 				}
 			} else if (lysSample[0] < svart1 && fargeSample[0] > svart2) {
