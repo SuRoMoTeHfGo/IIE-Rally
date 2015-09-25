@@ -40,17 +40,20 @@ public class Main{
 			lysLeser.fetchSample(lysSample, 0);
 			fargeLeser.fetchSample(fargeSample, 0);
 			if (lysSample[0] < svart1 && fargeSample[0] < svart2) {
-				System.out.println("Hinder!!!!");
 				// Gjør noe med denne logikken
 				switch (hinder) {
 					case 0:
-						while(lysSample[0] < svart1 || fargeSample[0] < svart2) {
-							pilot.forward();
-							pilot.rotateLeft();
-						}
+						System.out.println("Hinder 1");
+						pilot.forward();
+						Thread.sleep(50);
+						pilot.rotateLeft();
+						Thread.sleep(100);
+						pilot.forward();
+						Thread.sleep(50);
 						hinder++;
 						break;
 					case 1:
+							System.out.println("Hinder 2");
 						int count = 0;
 						while(count < 10) {
 							if (fargeSample[0] < svart2) {
@@ -64,21 +67,21 @@ public class Main{
 						hinder++;
 						break;
 					case 2:
-						while(lysSample[0] < svart1 || fargeSample[0] < svart2) {
-							pilot.forward();
-							pilot.rotateRight();
-						}
+						System.out.println("Hinder 3");
+						pilot.forward();
+						Thread.sleep(50);
+						pilot.rotateRight();
+						Thread.sleep(100);
+						pilot.forward();
+						Thread.sleep(50);
 						hinder++;
 						break;
 				}
 			} else if (lysSample[0] < svart1 && fargeSample[0] > svart2) {
-				System.out.println("Venstre!");
 				pilot.rotateLeft();
 			} else if (lysSample[0] > svart1 && fargeSample[0] < svart2) {
-				System.out.println("Høyre!");
 				pilot.rotateRight();
 			} else {
-				System.out.println("Fremover!");
 				pilot.forward();
 			}
 		}
