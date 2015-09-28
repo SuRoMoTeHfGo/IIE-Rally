@@ -13,15 +13,7 @@ public class Main{
 
 		Brick brick = BrickFinder.getDefault();
     	Port s1 = brick.getPort("S1"); // fargesensor
- 		Port s2 = brick.getPort("S2"); // trykksensor
-		NXTLightSensor lysSensor = new NXTLightSensor(s1); // NXT-lyssensor
-		EV3ColorSensor fargeSensor = new EV3ColorSensor(s2); // EV3-fargesensor
-
-		/* Definerer en lyssensor */
-		SampleProvider lysLeser = lysSensor;  //
-		float[] lysSample = new float[lysLeser.sampleSize()];  // tabell som innholder avlest verdi
-		// readNormalizedValue()
-
+		EV3ColorSensor fargeSensor = new EV3ColorSensor(s1); // EV3-fargesensor
 
 		/* Definerer en fargesensor */
 		SampleProvider fargeLeser = fargeSensor.getMode("RGB");  // svart = 0.01..
@@ -32,24 +24,29 @@ public class Main{
 		pilot.setTravelSpeed(80);
 		pilot.setRotateSpeed(150);
 
-	    double svart1 = 0.43;
-		double svart2 = 0.03;
+		double svart = 0.03;
 
 		while (true) {
-			lysLeser.fetchSample(lysSample, 0);
 			fargeLeser.fetchSample(fargeSample, 0);
-			if (fargeSample[0] < svart2) {
-				System.out.println("Høyre!");
-				pilot.rotateRight();
-			} else if (lysSample[0] < svart1) {
-				System.out.println("Venstre!");
-				pilot.rotateLeft();
-			} else {
-				System.out.println("Fremover!");
-				pilot.forward();
+			int dir = 0;
+			if(dir == 0) {
+				while(fargeSample[0] < svart) {
+					pilot.rotateLeft();
+				}
+				while(fargeSample[0] > svart) {
+					pilot.rotateLeft();
+				}
+				dir = 1;
 			}
-			System.out.println(lysSample[0]);
-			Thread.sleep(200);
+			if (dir == 1) {
+				while(fargeSample[0] < svart) {
+					pilot.rotateLeft();
+				}
+				while(fargeSample[0] > svart) {
+					pilot.rotateLeft();
+				}
+				dir = 0;
+			}
 		}
 	}
 }
