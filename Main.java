@@ -24,17 +24,15 @@ public class Main{
 		pilot.setTravelSpeed(80);
 		pilot.setRotateSpeed(150);
 
-		double gray = 0.03; // Finn fargeverdi langs enden på streken, kan gjøres om til et intervall...
+		// Mål svart og hvit og bruk følgende formel for å finne midtverdi
+		// midtverdi = (hvit + svart) / 2 + svart
+		double svart = 0.03;
+		double hvit = 0;
+		double midtverdi = (hvit + svart) / 2 + svart;
 
 		while (true) {
 			fargeLeser.fetchSample(fargeSample, 0);
-			if (fargeSample[0] < gray) {
-				pilot.rotateRight();
-			} else if (fargeSample[0] > gray) {
-				pilot.rotateLeft();
-			} else {
-				pilot.forward();
-			}
+			pilot.rotate(midtverdi - fargeSample[0]);
 		}
 	}
 }
