@@ -32,7 +32,7 @@ public class Main{
 
 		while (true) {
 			fargeLeser.fetchSample(fargeSample, 0);
-			pilot.rotate(midtverdi - fargeSample[0]);
+			pilot.arc((midtverdi - fargeSample[0])*1000);
 		}
 	}
 }
