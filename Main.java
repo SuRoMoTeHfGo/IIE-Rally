@@ -40,10 +40,10 @@ public class Main{
 			}
 			if (dir == 1) {
 				while(fargeSample[0] < svart) {
-					pilot.rotateLeft();
+					pilot.rotateRight();
 				}
 				while(fargeSample[0] > svart) {
-					pilot.rotateLeft();
+					pilot.rotateRight();
 				}
 				dir = 0;
 			}
