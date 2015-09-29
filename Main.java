@@ -24,7 +24,7 @@ public class Main{
 
 
 		/* Definerer en fargesensor */
-		SampleProvider fargeLeser = fargeSensor.getMode("RGB");  // svart = 0.01..
+		SampleProvider fargeLeser = fargeSensor.getRedMode();  // svart = 0.01..
 		float[] fargeSample = new float[fargeLeser.sampleSize()];  // tabell som innholder avlest verdi
 
 		// Registrerer differentialPilot
