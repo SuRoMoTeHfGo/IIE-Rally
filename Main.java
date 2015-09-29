@@ -30,7 +30,7 @@ public class Main{
 			fargeLeser.fetchSample(fargeSample, 0);
 			int dir = 0;
 			if(dir == 0) {
-				while(fargeSample[0] < svart) {
+				while(fargeSample[0] > svart) {
 					pilot.rotateLeft();
 				}
 				while(fargeSample[0] > svart) {
@@ -42,7 +42,7 @@ public class Main{
 				while(fargeSample[0] < svart) {
 					pilot.rotateRight();
 				}
-				while(fargeSample[0] > svart) {
+				while(fargeSample[0] < svart) {
 					pilot.rotateRight();
 				}
 				dir = 0;
