@@ -31,19 +31,19 @@ public class Main{
 			int dir = 0;
 			if(dir == 0) {
 				while(fargeSample[0] > svart) {
-					pilot.rotateLeft();
+					pilot.arcForward(5);
 				}
 				while(fargeSample[0] > svart) {
-					pilot.rotateLeft();
+					pilot.arcForward(5);
 				}
 				dir = 1;
 			}
 			if (dir == 1) {
 				while(fargeSample[0] < svart) {
-					pilot.rotateRight();
+					pilot.arcForward(-5);
 				}
 				while(fargeSample[0] < svart) {
-					pilot.rotateRight();
+					pilot.arcForward(-5);
 				}
 				dir = 0;
 			}
