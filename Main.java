@@ -16,7 +16,7 @@ public class Main{
 		EV3ColorSensor fargeSensor = new EV3ColorSensor(s1); // EV3-fargesensor
 
 		/* Definerer en fargesensor */
-		SampleProvider fargeLeser = fargeSensor.getMode("RGB");  // svart = 0.01..
+		SampleProvider fargeLeser = fargeSensor.getRedMode();  // svart = 0.01..
 		float[] fargeSample = new float[fargeLeser.sampleSize()];  // tabell som innholder avlest verdi
 
 		// Registrerer differentialPilot
@@ -24,7 +24,8 @@ public class Main{
 		pilot.setTravelSpeed(80);
 		pilot.setRotateSpeed(150);
 
-		double svart = 0.03;
+		double svart = 0.02;
+		double hvit = 0.12;
 
 		while (true) {
 			fargeLeser.fetchSample(fargeSample, 0);
