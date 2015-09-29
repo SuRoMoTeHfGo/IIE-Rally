@@ -25,10 +25,10 @@ public class Main{
 		pilot.setRotateSpeed(150);
 
 		// Mål svart og hvit og bruk følgende formel for å finne midtverdi
-		// midtverdi = (hvit + svart) / 2 + svart
-		double svart = 0.03;
-		double hvit = 0;
-		double midtverdi = (hvit + svart) / 2 + svart;
+		// midtverdi = (hvit + svart) / 2
+		double svart = 0.016;
+		double hvit = 0.046;
+		double midtverdi = (hvit + svart) / 2;
 
 		while (true) {
 			fargeLeser.fetchSample(fargeSample, 0);
