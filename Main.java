@@ -34,16 +34,39 @@ public class Main{
 
 	    double svart1 = 0.43;
 		double svart2 = 0.03;
+		int[] count = {0,0,0};
 
 		while (true) {
 			lysLeser.fetchSample(lysSample, 0);
 			fargeLeser.fetchSample(fargeSample, 0);
 			if (fargeSample[0] < svart2) {
-				System.out.println("Høyre!");
-				pilot.rotateRight();
+				if(count[2] < 2) {
+					System.out.println("Høyre!");
+					pilot.rotateRight();
+					count[1] = 0;
+					count[0]++;
+					if(count[0] == 3) {
+						count[2]++;
+						count[0] = 0;
+					}
+				} else {
+					pilot.travel(50);
+					count[2] = 0;
+				}
 			} else if (lysSample[0] < svart1) {
-				System.out.println("Venstre!");
-				pilot.rotateLeft();
+				if(count[2] < 2) {
+					System.out.println("Venstre!");
+					pilot.rotateLeft();
+					count[0] = 0;
+					count[1]++;
+					if(count[1] == 3) {
+						count[2]++;
+						count[1] = 0;
+					}
+				} else {
+					pilot.travel(50);
+					count[2] = 0;
+				}
 			} else {
 				System.out.println("Fremover!");
 				pilot.forward();
